@@ -4,6 +4,7 @@ import id.my.agungdh.atengambekbe.DTO.NgambekDTO;
 import id.my.agungdh.atengambekbe.Mapper.NgambekMapper;
 import id.my.agungdh.atengambekbe.entity.Ngambek;
 import id.my.agungdh.atengambekbe.repository.NgambekRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class NgambekService {
     }
 
     public NgambekDTO getNgambek(UUID id) {
-        Ngambek ngambek = repository.getNgambekByUuid(id);
+        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
 
         return mapper.toDTO(ngambek);
     }
