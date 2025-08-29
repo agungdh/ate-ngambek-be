@@ -21,4 +21,11 @@ public class Selesai {
     private LocalDateTime kapan;
     @Column(nullable = false)
     private String gimana;
+
+    @PrePersist
+    public void generateUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID();
+        }
+    }
 }

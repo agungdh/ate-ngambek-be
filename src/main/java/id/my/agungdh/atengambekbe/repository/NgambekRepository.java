@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface NgambekRepository extends JpaRepository<Ngambek, Long> {
-    Ngambek getNgambeksByUuid(UUID id);
+    Ngambek getNgambekByUuid(UUID id);
 }

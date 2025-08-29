@@ -18,4 +18,11 @@ public class Ngambek {
     private LocalDateTime kapan;
     @Column(nullable = false)
     private String kenapa;
+
+    @PrePersist
+    public void generateUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID();
+        }
+    }
 }
