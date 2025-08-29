@@ -22,7 +22,7 @@ public class NgambekService {
     private final NgambekMapper mapper;
 
     public List<NgambekDTO> findAll() {
-        List<Ngambek> ngambeks = repository.findAll();
+        List<Ngambek> ngambeks = repository.findAllByOrderByIdDesc();
         List<NgambekDTO> dtos = new ArrayList<>();
         for (Ngambek ngambek : ngambeks) {
             dtos.add(mapper.toDTO(ngambek));
@@ -40,5 +40,19 @@ public class NgambekService {
     public void createNgambek(NgambekDTO dto) {
         Ngambek ngambek = mapper.toEntity(dto);
         repository.save(ngambek);
+    }
+
+    public void updateNgambek(UUID id, NgambekDTO dto) {
+        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
+
+        mapper.updateEntityFromDto(dto, ngambek);
+
+        repository.save(ngambek);
+    }
+
+    public void deleteNgambek(UUID id) {
+        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
+
+        repository.delete(ngambek);
     }
 }

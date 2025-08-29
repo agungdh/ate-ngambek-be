@@ -28,10 +28,24 @@ public class NgambekController {
     public ResponseEntity<NgambekDTO> getNgambekById(@PathVariable UUID id) {
         return ResponseEntity.ok(ngambekService.getNgambek(id));
     }
-    
+
     @PostMapping
     public ResponseEntity<Void> createNgambek(@RequestBody NgambekDTO dto) {
         ngambekService.createNgambek(dto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateNgambek(@PathVariable UUID id, @RequestBody NgambekDTO dto) {
+        ngambekService.updateNgambek(id, dto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNgambek(@PathVariable UUID id) {
+        ngambekService.deleteNgambek(id);
 
         return ResponseEntity.ok().build();
     }
