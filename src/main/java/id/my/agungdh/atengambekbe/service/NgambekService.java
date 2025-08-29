@@ -32,7 +32,7 @@ public class NgambekService {
     }
 
     public NgambekDTO getNgambek(UUID id) {
-        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
+        Ngambek ngambek = getNgambekByUUID(id);
 
         return mapper.toDTO(ngambek);
     }
@@ -43,7 +43,7 @@ public class NgambekService {
     }
 
     public void updateNgambek(UUID id, NgambekDTO dto) {
-        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
+        Ngambek ngambek = getNgambekByUUID(id);
 
         mapper.updateEntityFromDto(dto, ngambek);
 
@@ -51,8 +51,12 @@ public class NgambekService {
     }
 
     public void deleteNgambek(UUID id) {
-        Ngambek ngambek = repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
+        Ngambek ngambek = getNgambekByUUID(id);
 
         repository.delete(ngambek);
+    }
+
+    private Ngambek getNgambekByUUID(UUID id) {
+        return repository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException("Ngambek not found"));
     }
 }
