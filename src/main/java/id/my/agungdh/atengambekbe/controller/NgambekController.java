@@ -1,13 +1,9 @@
 package id.my.agungdh.atengambekbe.controller;
 
 import id.my.agungdh.atengambekbe.DTO.NgambekDTO;
-import id.my.agungdh.atengambekbe.entity.Ngambek;
 import id.my.agungdh.atengambekbe.service.NgambekService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

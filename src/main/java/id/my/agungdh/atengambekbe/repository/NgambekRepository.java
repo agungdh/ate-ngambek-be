@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public interface NgambekRepository extends JpaRepository<Ngambek, Long> {
     List<Ngambek> findAllByOrderByIdAsc();
+
     List<Ngambek> findAllByOrderByIdDesc();
 
     Optional<Ngambek> findByUuid(UUID id);
