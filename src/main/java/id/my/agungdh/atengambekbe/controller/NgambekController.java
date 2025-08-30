@@ -3,6 +3,7 @@ package id.my.agungdh.atengambekbe.controller;
 import id.my.agungdh.atengambekbe.DTO.NgambekDTO;
 import id.my.agungdh.atengambekbe.entity.Ngambek;
 import id.my.agungdh.atengambekbe.service.NgambekService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class NgambekController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNgambek(@RequestBody NgambekDTO dto) {
+    public ResponseEntity<Void> createNgambek(@RequestBody @Valid NgambekDTO dto) {
         ngambekService.createNgambek(dto);
 
         return ResponseEntity.ok().build();
