@@ -24,15 +24,11 @@ public class ValidationExceptionHandler {
     ) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
-        body.put("error", "Bad Request");
         body.put("message", String.format(
-                "Validation failed for object='%s'. Error count: %d",
-                ex.getBindingResult().getObjectName(),
+                "Validation failed. Error count: %d",
                 ex.getBindingResult().getErrorCount()
         ));
         body.put("errors", toFieldErrors(ex));
-        body.put("path", request.getRequestURI());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -80,21 +76,14 @@ public class ValidationExceptionHandler {
                 .stream()
                 .map(error -> {
                     Map<String, Object> m = new LinkedHashMap<>();
-                    m.put("objectName", error.getObjectName());
 
                     if (error instanceof FieldError fe) {
                         m.put("field", fe.getField());
-                        m.put("rejectedValue", fe.getRejectedValue());
-                        m.put("bindingFailure", fe.isBindingFailure());
                     } else {
                         m.put("field", null);
-                        m.put("rejectedValue", null);
-                        m.put("bindingFailure", false);
                     }
 
-                    m.put("codes", Optional.ofNullable(error.getCodes()).map(Arrays::asList).orElse(null));
-                    m.put("arguments", Optional.ofNullable(error.getArguments()).map(Arrays::asList).orElse(null));
-                    m.put("defaultMessage", error.getDefaultMessage());
+                    m.put("message", error.getDefaultMessage());
                     m.put("code", error.getCode());
                     return m;
                 })
@@ -137,7 +126,7 @@ public class ValidationExceptionHandler {
             m.put("rejectedValue", v.getInvalidValue());
             m.put("codes", List.of(v.getMessageTemplate())); // biasanya berisi kode seperti "{NotBlank}"
             m.put("arguments", null);
-            m.put("defaultMessage", v.getMessage());
+            m.put("message", v.getMessage());
             m.put("bindingFailure", false);
             m.put("code", extractCodeFromTemplate(v.getMessageTemplate()));
             list.add(m);
